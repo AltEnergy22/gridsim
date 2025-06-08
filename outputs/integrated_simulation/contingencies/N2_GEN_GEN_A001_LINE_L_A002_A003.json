@@ -1,0 +1,16 @@
+{
+  "id": "N2_GEN_GEN_A001_LINE_L_A002_A003",
+  "name": "Generator + Line: Generator A001, L_A002_A003",
+  "type": "N-2",
+  "elements": [
+    "GEN_A001",
+    "L_A002_A003"
+  ],
+  "probability": 0.00011651514731746249,
+  "severity_dist": {
+    "distribution": "lognormal",
+    "mean_mw": 150,
+    "sigma": 0.5
+  },
+  "duration_min": 110.66761795683134
+}

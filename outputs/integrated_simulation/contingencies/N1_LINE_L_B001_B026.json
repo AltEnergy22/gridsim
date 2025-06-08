@@ -1,0 +1,15 @@
+{
+  "id": "N1_LINE_L_B001_B026",
+  "name": "Line Outage: Line Bus B001-Bus B026",
+  "type": "N-1",
+  "elements": [
+    "L_B001_B026"
+  ],
+  "probability": 0.012432624950958855,
+  "severity_dist": {
+    "distribution": "lognormal",
+    "mean_mw": 50,
+    "sigma": 0.3
+  },
+  "duration_min": 70.69385164178979
+}

@@ -1,0 +1,16 @@
+{
+  "id": "N2_LINES_L_A028_A003_L_A003_B004",
+  "name": "Adjacent Lines: L_A028_A003, L_A003_B004",
+  "type": "N-2",
+  "elements": [
+    "L_A028_A003",
+    "L_A003_B004"
+  ],
+  "probability": 0.0006305172133888112,
+  "severity_dist": {
+    "distribution": "lognormal",
+    "mean_mw": 50,
+    "sigma": 0.3
+  },
+  "duration_min": 137.410802608458
+}

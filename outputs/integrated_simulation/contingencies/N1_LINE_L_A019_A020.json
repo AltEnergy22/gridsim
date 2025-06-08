@@ -1,0 +1,15 @@
+{
+  "id": "N1_LINE_L_A019_A020",
+  "name": "Line Outage: Line Bus A019-Bus A020",
+  "type": "N-1",
+  "elements": [
+    "L_A019_A020"
+  ],
+  "probability": 0.011869436573375428,
+  "severity_dist": {
+    "distribution": "lognormal",
+    "mean_mw": 50,
+    "sigma": 0.3
+  },
+  "duration_min": 121.48920994297353
+}

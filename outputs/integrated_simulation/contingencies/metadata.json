@@ -1,0 +1,19 @@
+{
+  "total_scenarios": 156,
+  "n1_scenarios": 136,
+  "n2_scenarios": 20,
+  "topology_hash": "1899405474053748371",
+  "generation_timestamp": "2025-06-08T03:37:18.500738",
+  "failure_rates": {
+    "base_line_rate_per_km_per_year": 0.005,
+    "generator_rates_per_year": {
+      "coal": 0.05,
+      "gas": 0.07,
+      "nuclear": 0.03,
+      "hydro": 0.03,
+      "wind": 0.1,
+      "solar": 0.1
+    },
+    "transformer_base_rate_per_year": 0.01
+  }
+}
