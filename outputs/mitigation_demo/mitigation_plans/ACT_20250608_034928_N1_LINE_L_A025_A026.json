@@ -1,0 +1,91 @@
+{
+  "action_id": "ACT_20250608_034928_N1_LINE_L_A025_A026",
+  "contingency_id": "N1_LINE_L_A025_A026",
+  "created_by": "MitigationEngine",
+  "created_at": "2025-06-08T03:49:28.980727",
+  "pre_conditions": {
+    "min_spinning_reserve_mw": "50.0",
+    "max_line_loading_pct": "120.0",
+    "voltage_range_pu": "[0.90, 1.10]"
+  },
+  "action_sequence": [
+    {
+      "step": 1,
+      "type": "reactive_dispatch",
+      "target": "Generator B002",
+      "parameters": {
+        "delta_mvar": -0.026065848352452292,
+        "reason": "Lower voltage at Bus A003"
+      },
+      "timeout_s": 60.0,
+      "condition": null
+    },
+    {
+      "step": 2,
+      "type": "reactive_dispatch",
+      "target": "Generator B002",
+      "parameters": {
+        "delta_mvar": -0.1292781057102843,
+        "reason": "Lower voltage at Bus A004"
+      },
+      "timeout_s": 60.0,
+      "condition": null
+    },
+    {
+      "step": 3,
+      "type": "reactive_dispatch",
+      "target": "Generator B002",
+      "parameters": {
+        "delta_mvar": -0.30399277999535457,
+        "reason": "Lower voltage at Bus A005"
+      },
+      "timeout_s": 60.0,
+      "condition": null
+    },
+    {
+      "step": 4,
+      "type": "reactive_dispatch",
+      "target": "Generator B002",
+      "parameters": {
+        "delta_mvar": -0.3718629779482674,
+        "reason": "Lower voltage at Bus A006"
+      },
+      "timeout_s": 60.0,
+      "condition": null
+    },
+    {
+      "step": 5,
+      "type": "reactive_dispatch",
+      "target": "Generator B002",
+      "parameters": {
+        "delta_mvar": -0.4273523967934567,
+        "reason": "Lower voltage at Bus A007"
+      },
+      "timeout_s": 60.0,
+      "condition": null
+    }
+  ],
+  "expected_outcome": {
+    "metrics": {
+      "max_loading_pct": "<95",
+      "min_voltage_pu": ">=0.98",
+      "max_voltage_pu": "<=1.02"
+    },
+    "tolerance": {
+      "voltage_deadband_pu": 0.02,
+      "loading_deadband_pct": 2.0
+    }
+  },
+  "cost_breakdown": {
+    "fuel_cost_usd": 0.0,
+    "shed_cost_usd": 0.0,
+    "startup_cost_usd": 0.0,
+    "wear_tear_cost_usd": 50.0,
+    "total_cost_usd": 50.0
+  },
+  "execution_profile": {
+    "estimated_time_s": 150.0,
+    "priority": "high",
+    "automation_level": "semi_automatic"
+  }
+}

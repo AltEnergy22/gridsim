@@ -1,0 +1,15 @@
+{
+  "id": "N1_LINE_L_B041_B042",
+  "name": "Line Outage: Line Bus B041-Bus B042",
+  "type": "N-1",
+  "elements": [
+    "L_B041_B042"
+  ],
+  "probability": 0.0035851758978198973,
+  "severity_dist": {
+    "distribution": "lognormal",
+    "mean_mw": 50,
+    "sigma": 0.3
+  },
+  "duration_min": 95.75040898406722
+}

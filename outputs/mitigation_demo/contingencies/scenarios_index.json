@@ -1,0 +1,488 @@
+[
+  {
+    "id": "N1_LINE_L_A001_B001",
+    "type": "N-1",
+    "probability": 0.2867583116505192,
+    "file": "N1_LINE_L_A001_B001.json"
+  },
+  {
+    "id": "N1_LINE_L_B001_B002",
+    "type": "N-1",
+    "probability": 0.0305972179348355,
+    "file": "N1_LINE_L_B001_B002.json"
+  },
+  {
+    "id": "N1_LINE_L_A004_A005",
+    "type": "N-1",
+    "probability": 0.030509990734239986,
+    "file": "N1_LINE_L_A004_A005.json"
+  },
+  {
+    "id": "N1_LINE_L_B006_B007",
+    "type": "N-1",
+    "probability": 0.024094624438916894,
+    "file": "N1_LINE_L_B006_B007.json"
+  },
+  {
+    "id": "N1_LINE_L_A012_A013",
+    "type": "N-1",
+    "probability": 0.02077340845040752,
+    "file": "N1_LINE_L_A012_A013.json"
+  },
+  {
+    "id": "N1_LINE_L_A025_A026",
+    "type": "N-1",
+    "probability": 0.018190374876074916,
+    "file": "N1_LINE_L_A025_A026.json"
+  },
+  {
+    "id": "N1_LINE_L_B021_B022",
+    "type": "N-1",
+    "probability": 0.018090528804372036,
+    "file": "N1_LINE_L_B021_B022.json"
+  },
+  {
+    "id": "N1_LINE_L_B020_B021",
+    "type": "N-1",
+    "probability": 0.017945918078685487,
+    "file": "N1_LINE_L_B020_B021.json"
+  },
+  {
+    "id": "N1_LINE_L_B022_B007",
+    "type": "N-1",
+    "probability": 0.017631193108179996,
+    "file": "N1_LINE_L_B022_B007.json"
+  },
+  {
+    "id": "N1_LINE_L_A005_A006",
+    "type": "N-1",
+    "probability": 0.017598588867786757,
+    "file": "N1_LINE_L_A005_A006.json"
+  },
+  {
+    "id": "N1_LINE_L_B003_B004",
+    "type": "N-1",
+    "probability": 0.016538222922882574,
+    "file": "N1_LINE_L_B003_B004.json"
+  },
+  {
+    "id": "N1_LINE_L_B013_B014",
+    "type": "N-1",
+    "probability": 0.015669592953862957,
+    "file": "N1_LINE_L_B013_B014.json"
+  },
+  {
+    "id": "N1_LINE_L_A027_A028",
+    "type": "N-1",
+    "probability": 0.015406426269896474,
+    "file": "N1_LINE_L_A027_A028.json"
+  },
+  {
+    "id": "N1_LINE_L_B009_B010",
+    "type": "N-1",
+    "probability": 0.014784573534943548,
+    "file": "N1_LINE_L_B009_B010.json"
+  },
+  {
+    "id": "N1_LINE_L_B007_B008",
+    "type": "N-1",
+    "probability": 0.014709525272455629,
+    "file": "N1_LINE_L_B007_B008.json"
+  },
+  {
+    "id": "N1_LINE_L_B027_B028",
+    "type": "N-1",
+    "probability": 0.013921426574054098,
+    "file": "N1_LINE_L_B027_B028.json"
+  },
+  {
+    "id": "N1_LINE_L_B026_B027",
+    "type": "N-1",
+    "probability": 0.013606197544889493,
+    "file": "N1_LINE_L_B026_B027.json"
+  },
+  {
+    "id": "N1_LINE_L_A028_A013",
+    "type": "N-1",
+    "probability": 0.01358853174323128,
+    "file": "N1_LINE_L_A028_A013.json"
+  },
+  {
+    "id": "N1_LINE_L_B017_B018",
+    "type": "N-1",
+    "probability": 0.01350719940024016,
+    "file": "N1_LINE_L_B017_B018.json"
+  },
+  {
+    "id": "N1_LINE_L_A010_A025",
+    "type": "N-1",
+    "probability": 0.012843843568667045,
+    "file": "N1_LINE_L_A010_A025.json"
+  },
+  {
+    "id": "N1_LINE_L_A003_A004",
+    "type": "N-1",
+    "probability": 0.01231260235266522,
+    "file": "N1_LINE_L_A003_A004.json"
+  },
+  {
+    "id": "N1_LINE_L_A022_A023",
+    "type": "N-1",
+    "probability": 0.011961596575860541,
+    "file": "N1_LINE_L_A022_A023.json"
+  },
+  {
+    "id": "N1_LINE_L_B018_B019",
+    "type": "N-1",
+    "probability": 0.011845710621750565,
+    "file": "N1_LINE_L_B018_B019.json"
+  },
+  {
+    "id": "N1_LINE_L_A013_A014",
+    "type": "N-1",
+    "probability": 0.011510465994238894,
+    "file": "N1_LINE_L_A013_A014.json"
+  },
+  {
+    "id": "N1_LINE_L_A026_A027",
+    "type": "N-1",
+    "probability": 0.011344901460366028,
+    "file": "N1_LINE_L_A026_A027.json"
+  },
+  {
+    "id": "N1_LINE_L_A029_A030",
+    "type": "N-1",
+    "probability": 0.011295733971376808,
+    "file": "N1_LINE_L_A029_A030.json"
+  },
+  {
+    "id": "N1_LINE_L_A024_A025",
+    "type": "N-1",
+    "probability": 0.010811696617712713,
+    "file": "N1_LINE_L_A024_A025.json"
+  },
+  {
+    "id": "N1_LINE_L_B002_B003",
+    "type": "N-1",
+    "probability": 0.01070844682351949,
+    "file": "N1_LINE_L_B002_B003.json"
+  },
+  {
+    "id": "N1_LINE_L_A025_A010",
+    "type": "N-1",
+    "probability": 0.010515649717390566,
+    "file": "N1_LINE_L_A025_A010.json"
+  },
+  {
+    "id": "N1_LINE_L_A019_A004",
+    "type": "N-1",
+    "probability": 0.009876883184241944,
+    "file": "N1_LINE_L_A019_A004.json"
+  },
+  {
+    "id": "N1_LINE_L_A010_A011",
+    "type": "N-1",
+    "probability": 0.009412617382346285,
+    "file": "N1_LINE_L_A010_A011.json"
+  },
+  {
+    "id": "N1_LINE_L_B004_B005",
+    "type": "N-1",
+    "probability": 0.009248244134259636,
+    "file": "N1_LINE_L_B004_B005.json"
+  },
+  {
+    "id": "N1_LINE_L_B014_B015",
+    "type": "N-1",
+    "probability": 0.009167062822013985,
+    "file": "N1_LINE_L_B014_B015.json"
+  },
+  {
+    "id": "N1_LINE_L_B008_B009",
+    "type": "N-1",
+    "probability": 0.008884859016151159,
+    "file": "N1_LINE_L_B008_B009.json"
+  },
+  {
+    "id": "N1_LINE_L_A007_A008",
+    "type": "N-1",
+    "probability": 0.008712947558652718,
+    "file": "N1_LINE_L_A007_A008.json"
+  },
+  {
+    "id": "N1_LINE_L_A020_A021",
+    "type": "N-1",
+    "probability": 0.008565337467925791,
+    "file": "N1_LINE_L_A020_A021.json"
+  },
+  {
+    "id": "N1_LINE_L_A001_A016",
+    "type": "N-1",
+    "probability": 0.008393599274316774,
+    "file": "N1_LINE_L_A001_A016.json"
+  },
+  {
+    "id": "N1_LINE_L_A004_A019",
+    "type": "N-1",
+    "probability": 0.008360601114340222,
+    "file": "N1_LINE_L_A004_A019.json"
+  },
+  {
+    "id": "N1_LINE_L_B024_B025",
+    "type": "N-1",
+    "probability": 0.007889179289341377,
+    "file": "N1_LINE_L_B024_B025.json"
+  },
+  {
+    "id": "N1_LINE_L_A022_A007",
+    "type": "N-1",
+    "probability": 0.007537461755864102,
+    "file": "N1_LINE_L_A022_A007.json"
+  },
+  {
+    "id": "N1_LINE_L_B010_B011",
+    "type": "N-1",
+    "probability": 0.00751147946080587,
+    "file": "N1_LINE_L_B010_B011.json"
+  },
+  {
+    "id": "N1_LINE_L_A001_A002",
+    "type": "N-1",
+    "probability": 0.006965171240977446,
+    "file": "N1_LINE_L_A001_A002.json"
+  },
+  {
+    "id": "N1_LINE_L_B001_B016",
+    "type": "N-1",
+    "probability": 0.00691202556812386,
+    "file": "N1_LINE_L_B001_B016.json"
+  },
+  {
+    "id": "N1_LINE_L_A015_A016",
+    "type": "N-1",
+    "probability": 0.006823518310759048,
+    "file": "N1_LINE_L_A015_A016.json"
+  },
+  {
+    "id": "N1_LINE_L_A017_A018",
+    "type": "N-1",
+    "probability": 0.006782434623471364,
+    "file": "N1_LINE_L_A017_A018.json"
+  },
+  {
+    "id": "N1_LINE_L_A019_A020",
+    "type": "N-1",
+    "probability": 0.006720270823013183,
+    "file": "N1_LINE_L_A019_A020.json"
+  },
+  {
+    "id": "N1_LINE_L_B007_B022",
+    "type": "N-1",
+    "probability": 0.006706002375881367,
+    "file": "N1_LINE_L_B007_B022.json"
+  },
+  {
+    "id": "N1_LINE_L_A007_A022",
+    "type": "N-1",
+    "probability": 0.006596585422038869,
+    "file": "N1_LINE_L_A007_A022.json"
+  },
+  {
+    "id": "N1_LINE_L_B029_B030",
+    "type": "N-1",
+    "probability": 0.006511115595805242,
+    "file": "N1_LINE_L_B029_B030.json"
+  },
+  {
+    "id": "N1_LINE_L_B010_B025",
+    "type": "N-1",
+    "probability": 0.006480916666223672,
+    "file": "N1_LINE_L_B010_B025.json"
+  },
+  {
+    "id": "N1_LINE_L_B019_B020",
+    "type": "N-1",
+    "probability": 0.006274338294414725,
+    "file": "N1_LINE_L_B019_B020.json"
+  },
+  {
+    "id": "N1_LINE_L_A013_A028",
+    "type": "N-1",
+    "probability": 0.006105720892060094,
+    "file": "N1_LINE_L_A013_A028.json"
+  },
+  {
+    "id": "N1_LINE_L_A014_A015",
+    "type": "N-1",
+    "probability": 0.005843806438469468,
+    "file": "N1_LINE_L_A014_A015.json"
+  },
+  {
+    "id": "N1_LINE_L_A002_A003",
+    "type": "N-1",
+    "probability": 0.005799637101246801,
+    "file": "N1_LINE_L_A002_A003.json"
+  },
+  {
+    "id": "N1_LINE_L_B028_B029",
+    "type": "N-1",
+    "probability": 0.005792180825332286,
+    "file": "N1_LINE_L_B028_B029.json"
+  },
+  {
+    "id": "N1_LINE_L_B016_B001",
+    "type": "N-1",
+    "probability": 0.005120554482684059,
+    "file": "N1_LINE_L_B016_B001.json"
+  },
+  {
+    "id": "N1_LINE_L_B011_B012",
+    "type": "N-1",
+    "probability": 0.005000822854857958,
+    "file": "N1_LINE_L_B011_B012.json"
+  },
+  {
+    "id": "N1_LINE_L_B025_B026",
+    "type": "N-1",
+    "probability": 0.004974962612805033,
+    "file": "N1_LINE_L_B025_B026.json"
+  },
+  {
+    "id": "N1_LINE_L_A006_A007",
+    "type": "N-1",
+    "probability": 0.0045207305469652705,
+    "file": "N1_LINE_L_A006_A007.json"
+  },
+  {
+    "id": "N1_LINE_L_A028_A029",
+    "type": "N-1",
+    "probability": 0.004352831515106589,
+    "file": "N1_LINE_L_A028_A029.json"
+  },
+  {
+    "id": "N1_LINE_L_A008_A009",
+    "type": "N-1",
+    "probability": 0.004249879709770512,
+    "file": "N1_LINE_L_A008_A009.json"
+  },
+  {
+    "id": "N1_LINE_L_B016_B017",
+    "type": "N-1",
+    "probability": 0.004241514304864923,
+    "file": "N1_LINE_L_B016_B017.json"
+  },
+  {
+    "id": "N1_LINE_L_A009_A010",
+    "type": "N-1",
+    "probability": 0.0038629974544508545,
+    "file": "N1_LINE_L_A009_A010.json"
+  },
+  {
+    "id": "N1_LINE_L_A016_A001",
+    "type": "N-1",
+    "probability": 0.0037714872671438197,
+    "file": "N1_LINE_L_A016_A001.json"
+  },
+  {
+    "id": "N1_LINE_L_A023_A024",
+    "type": "N-1",
+    "probability": 0.0031646515368405266,
+    "file": "N1_LINE_L_A023_A024.json"
+  },
+  {
+    "id": "N1_LINE_L_A021_A022",
+    "type": "N-1",
+    "probability": 0.0029586554603743746,
+    "file": "N1_LINE_L_A021_A022.json"
+  },
+  {
+    "id": "N1_LINE_L_B015_B016",
+    "type": "N-1",
+    "probability": 0.002823652785265605,
+    "file": "N1_LINE_L_B015_B016.json"
+  },
+  {
+    "id": "N1_LINE_L_B030_B001",
+    "type": "N-1",
+    "probability": 0.0027363430210018006,
+    "file": "N1_LINE_L_B030_B001.json"
+  },
+  {
+    "id": "N1_LINE_L_B022_B023",
+    "type": "N-1",
+    "probability": 0.002716233576718891,
+    "file": "N1_LINE_L_B022_B023.json"
+  },
+  {
+    "id": "N1_LINE_L_B013_B028",
+    "type": "N-1",
+    "probability": 0.0026563087165156537,
+    "file": "N1_LINE_L_B013_B028.json"
+  },
+  {
+    "id": "N1_LINE_L_B005_B006",
+    "type": "N-1",
+    "probability": 0.0024813840523795205,
+    "file": "N1_LINE_L_B005_B006.json"
+  },
+  {
+    "id": "N1_LINE_L_B025_B010",
+    "type": "N-1",
+    "probability": 0.0023841960014490517,
+    "file": "N1_LINE_L_B025_B010.json"
+  },
+  {
+    "id": "N1_LINE_L_B012_B013",
+    "type": "N-1",
+    "probability": 0.002190504519603426,
+    "file": "N1_LINE_L_B012_B013.json"
+  },
+  {
+    "id": "N1_LINE_L_A030_A001",
+    "type": "N-1",
+    "probability": 0.0020889693981488502,
+    "file": "N1_LINE_L_A030_A001.json"
+  },
+  {
+    "id": "N1_LINE_L_A018_A019",
+    "type": "N-1",
+    "probability": 0.002041054932521524,
+    "file": "N1_LINE_L_A018_A019.json"
+  },
+  {
+    "id": "N1_LINE_L_B019_B004",
+    "type": "N-1",
+    "probability": 0.001838090803486195,
+    "file": "N1_LINE_L_B019_B004.json"
+  },
+  {
+    "id": "N1_LINE_L_A016_A017",
+    "type": "N-1",
+    "probability": 0.0016623198505027938,
+    "file": "N1_LINE_L_A016_A017.json"
+  },
+  {
+    "id": "N1_LINE_L_B023_B024",
+    "type": "N-1",
+    "probability": 0.0016349212099057901,
+    "file": "N1_LINE_L_B023_B024.json"
+  },
+  {
+    "id": "N1_LINE_L_B004_B019",
+    "type": "N-1",
+    "probability": 0.0016086480291893314,
+    "file": "N1_LINE_L_B004_B019.json"
+  },
+  {
+    "id": "N1_LINE_L_B028_B013",
+    "type": "N-1",
+    "probability": 0.001116580390361118,
+    "file": "N1_LINE_L_B028_B013.json"
+  },
+  {
+    "id": "N1_LINE_L_A011_A012",
+    "type": "N-1",
+    "probability": 0.0008552074649870278,
+    "file": "N1_LINE_L_A011_A012.json"
+  }
+]
