@@ -1,0 +1,27 @@
+{
+  "dataset_info": {
+    "total_scenarios": 20,
+    "convergence_rate": 100.0,
+    "scenario_type_distribution": {
+      "normal": 16,
+      "stress": 3,
+      "challenge": 1
+    },
+    "stress_level_distribution": {
+      "low": 16,
+      "high": 3,
+      "extreme": 1
+    }
+  },
+  "convergence_analysis": {
+    "normal_convergence_rate": 100.0,
+    "stress_convergence_rate": 100.0,
+    "challenge_convergence_rate": 100.0
+  },
+  "system_metrics": {
+    "avg_computation_time": 0.21454691886901855,
+    "avg_iterations": 50.0,
+    "avg_loss_percentage": 6.7324005377051765,
+    "voltage_violation_rate": 100.0
+  }
+}

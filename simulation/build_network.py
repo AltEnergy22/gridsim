@@ -11,6 +11,8 @@ import pandas as pd
 from typing import Dict, List, Optional, Tuple
 from loguru import logger
 import datetime
+import math
+import random
 
 from grid import AdvancedGrid, Bus, Generator, EHVLine, Transformer
 
@@ -57,6 +59,7 @@ class NetworkBuilder:
         self._add_generators(net, grid, timestamp)
         self._add_lines(net, grid)
         self._add_transformers(net, grid)
+        self._add_voltage_control_devices(net, grid)
         self._add_external_grid(net, grid)
         
         logger.info(f"Network built: {len(net.bus)} buses, {len(net.line)} lines, "
@@ -132,64 +135,152 @@ class NetworkBuilder:
                     controllable=dr_signal  # Controllable if DR is active
                 )
     
-    def _add_generators(self, net: pp.pandapowerNet, grid: AdvancedGrid,
-                       timestamp: datetime.datetime):
-        """Add generators to the network"""
-        logger.info("Adding generators...")
+    def _add_generators(self, net: pp.pandapowerNet, grid: AdvancedGrid, 
+                       timestamp: Optional[datetime.datetime] = None):
+        """Add generators with proper voltage control and economic dispatch"""
+        logger.info("Adding generators with voltage control...")
         
-        for gen_id, gen in grid.generators.items():
-            pp_bus_idx = self.bus_mapping[gen.bus_id]
+        if timestamp is None:
+            timestamp = datetime.datetime.now()
+        
+        # Implement economic dispatch for better voltage control
+        generators_data = []
+        for gen_id, generator in grid.generators.items():
+            gen_data = {
+                'generator': generator,
+                'marginal_cost': generator.marginal_cost(),
+                'available_capacity': generator.available_capacity(timestamp)
+            }
+            generators_data.append(gen_data)
+        
+        # Sort by marginal cost for economic dispatch
+        generators_data.sort(key=lambda x: x['marginal_cost'])
+        
+        # Calculate total load for proper dispatch
+        total_load = sum(bus.load.total_load(timestamp, 25, 1.0, False) 
+                        for bus in grid.buses.values())
+        
+        # Target generation including losses and reserves
+        target_generation = total_load * 1.05  # 5% for losses and reserves
+        
+        # Dispatch generators economically
+        cumulative_dispatch = 0
+        
+        for i, gen_data in enumerate(generators_data):
+            generator = gen_data['generator']
+            available = gen_data['available_capacity']
             
-            # Get available capacity for this timestamp
-            max_p_mw = gen.available_capacity(timestamp)
-            
-            # Initial dispatch - simplified economic dispatch
-            if gen.is_baseload:
-                p_mw = max_p_mw * 0.9  # Run baseload at 90%
-            elif gen.is_peaking:
-                p_mw = max_p_mw * 0.3  # Run peaking at 30%
-            else:
-                p_mw = max_p_mw * 0.6  # Intermediate units at 60%
-            
-            # Generator costs
-            cost_per_mw = gen.marginal_cost()
-            
-            # Check if this bus already has a voltage controlling element
-            existing_gens = net.gen[net.gen['bus'] == pp_bus_idx]
-            existing_ext_grids = net.ext_grid[net.ext_grid['bus'] == pp_bus_idx]
-            
-            # Set voltage setpoint based on existing elements
-            if len(existing_gens) > 0 or len(existing_ext_grids) > 0:
-                # If there's already a voltage controlling element, make this one PQ
-                vm_pu = np.nan  # PQ mode
-            else:
-                # First generator on this bus can control voltage
-                vm_pu = 1.01
-            
-            pp_gen_idx = pp.create_gen(
-                net,
-                bus=pp_bus_idx,
-                p_mw=p_mw,
-                vm_pu=vm_pu,
-                name=gen.name,
-                max_p_mw=max_p_mw,
-                min_p_mw=0.0,
-                max_q_mvar=max_p_mw * 0.5,  # Typical reactive capability
-                min_q_mvar=-max_p_mw * 0.3,
-                controllable=True,
-                type=gen.type
+            # Determine if this generator should be voltage controlling
+            # - Large baseload units at transmission level control voltage
+            # - Swing bus (first/largest generator) definitely controls voltage
+            is_voltage_controlling = (
+                i == 0 or  # Swing/largest generator
+                (generator.type in ['nuclear', 'coal'] and 
+                 generator.capacity_mw > 200 and
+                 cumulative_dispatch < target_generation * 0.8)  # Major baseload units
             )
             
-            self.gen_mapping[gen_id] = pp_gen_idx
+            # Calculate dispatch for this generator
+            remaining_need = max(0, target_generation - cumulative_dispatch)
             
-            # Add cost curve
-            pp.create_poly_cost(
-                net,
-                element=pp_gen_idx,
-                et="gen",
-                cp1_eur_per_mw=cost_per_mw,
-                cp0_eur=gen.startup_cost if gen.online else 0
-            )
+            if remaining_need > 0:
+                # Dispatch between minimum and available capacity
+                min_output = available * 0.3 if generator.is_baseload else 0
+                max_output = available * 0.95  # Leave some margin
+                
+                dispatch = min(max_output, max(min_output, remaining_need))
+            else:
+                dispatch = 0
+                
+            cumulative_dispatch += dispatch
+            
+            # Get the bus index for this generator
+            bus_idx = self.bus_mapping.get(generator.bus_id)
+            if bus_idx is None:
+                logger.warning(f"Bus {generator.bus_id} not found for generator {gen_id}")
+                continue
+            
+            # Calculate reactive power limits based on capacity
+            max_q = generator.capacity_mw * 0.5  # Typical Q capability
+            min_q = -generator.capacity_mw * 0.3
+            
+            if is_voltage_controlling:
+                # PV bus - controls voltage, Q is variable within limits
+                target_voltage = self._get_target_voltage(generator, grid.buses[generator.bus_id])
+                
+                pp.create_gen(net,
+                            bus=bus_idx,
+                            p_mw=dispatch,
+                            vm_pu=target_voltage,  # Voltage setpoint
+                            name=generator.name,
+                            max_p_mw=available,
+                            min_p_mw=0,
+                            max_q_mvar=max_q,
+                            min_q_mvar=min_q,
+                            controllable=True,
+                            type=generator.type)
+            else:
+                # PQ bus - fixed P and Q
+                # Estimate Q based on power factor
+                power_factor = 0.9  # Typical for thermal units
+                q_dispatch = dispatch * math.tan(math.acos(power_factor))
+                q_dispatch = max(min_q, min(max_q, q_dispatch))
+                
+                pp.create_gen(net,
+                            bus=bus_idx,
+                            p_mw=dispatch,
+                            q_mvar=q_dispatch,
+                            name=generator.name,
+                            max_p_mw=available,
+                            min_p_mw=0,
+                            max_q_mvar=max_q,
+                            min_q_mvar=min_q,
+                            controllable=True,
+                            type=generator.type)
+        
+        logger.info(f"Added {len(grid.generators)} generators with economic dispatch")
+        logger.info(f"Total dispatched: {cumulative_dispatch:.1f} MW vs target: {target_generation:.1f} MW")
+    
+    def _get_target_voltage(self, generator: 'Generator', bus: 'Bus') -> float:
+        """Determine conservative target voltage setpoint for voltage-controlling generators"""
+        # More conservative voltage setpoints to prevent cascading overvoltages
+        voltage_level = bus.voltage_level
+        
+        if voltage_level >= 500:  # EHV transmission (500kV+)
+            return 1.00   # Nominal voltage for highest levels
+        elif voltage_level >= 345:  # EHV transmission (345kV)
+            return 1.005  # Very slight boost
+        elif voltage_level >= 138:  # HV transmission (138-230kV) 
+            return 1.000  # Nominal voltage
+        elif voltage_level >= 69:   # Sub-transmission
+            return 0.995  # Slightly below nominal
+        else:  # Distribution
+            return 1.000
+            
+    def _add_voltage_control_devices(self, net: pp.pandapowerNet, grid: AdvancedGrid):
+        """Add voltage control devices like capacitor banks and reactors"""
+        logger.info("Adding voltage control devices...")
+        
+        # Add shunt capacitors at strategic locations
+        for bus_id, bus in grid.buses.items():
+            bus_idx = self.bus_mapping.get(bus_id)
+            if bus_idx is None:
+                continue
+                
+            # Add capacitors at transmission substations with high load
+            if (bus.voltage_level >= 138 and 
+                bus.substation_id and 
+                random.random() < 0.3):  # 30% of transmission buses get capacitors
+                
+                # Size capacitor based on local load
+                local_load = bus.load.total_load(datetime.datetime.now(), 25, 1.0, False)
+                cap_size = local_load * 0.3  # 30% of load as reactive support
+                
+                pp.create_shunt(net,
+                              bus=bus_idx,
+                              q_mvar=cap_size,
+                              name=f"CAP_{bus_id}",
+                              controllable=True)
     
     def _add_lines(self, net: pp.pandapowerNet, grid: AdvancedGrid):
         """Add transmission lines"""
@@ -226,8 +317,8 @@ class NetworkBuilder:
             self.line_mapping[line_id] = pp_line_idx
     
     def _add_transformers(self, net: pp.pandapowerNet, grid: AdvancedGrid):
-        """Add transformers"""
-        logger.info("Adding transformers...")
+        """Add transformers with voltage control"""
+        logger.info("Adding transformers with voltage control...")
         
         for trafo_id, trafo in grid.transformers.items():
             hv_bus = self.bus_mapping[trafo.from_bus]
@@ -241,29 +332,57 @@ class NetworkBuilder:
             vk_percent = trafo.impedance_pu * 100  # Convert to percentage
             vkr_percent = vk_percent * 0.1  # Assume R is 10% of total impedance
             
-            # Maximum loading based on thermal rating
-            max_loading_percent = 100.0
-            
-            pp_trafo_idx = pp.create_transformer_from_parameters(
-                net,
-                hv_bus=hv_bus,
-                lv_bus=lv_bus,
-                name=trafo.name,
-                sn_mva=trafo.capacity_mva,
-                vn_hv_kv=hv_kv,
-                vn_lv_kv=lv_kv,
-                vk_percent=vk_percent,
-                vkr_percent=vkr_percent,
-                pfe_kw=trafo.capacity_mva * 1.0,  # 1% iron losses
-                i0_percent=0.5,  # 0.5% no-load current
-                tap_side="hv",
-                tap_neutral=0,
-                tap_min=-10,
-                tap_max=10,
-                tap_step_percent=1.25,
-                tap_pos=0,
-                max_loading_percent=max_loading_percent
+            # Determine if this transformer should have voltage control
+            should_control_voltage = (
+                trafo.capacity_mva >= 100 and  # Large transformers
+                trafo.from_level >= 138 and    # From transmission level
+                trafo.to_level <= trafo.from_level / 2  # Significant step down
             )
+            
+            if should_control_voltage:
+                # Enhanced transformer with voltage control
+                pp_trafo_idx = pp.create_transformer_from_parameters(
+                    net,
+                    hv_bus=hv_bus,
+                    lv_bus=lv_bus,
+                    name=trafo.name,
+                    sn_mva=trafo.capacity_mva,
+                    vn_hv_kv=hv_kv,
+                    vn_lv_kv=lv_kv,
+                    vk_percent=vk_percent,
+                    vkr_percent=vkr_percent,
+                    pfe_kw=trafo.capacity_mva * 1.0,
+                    i0_percent=0.5,
+                    tap_side="hv",
+                    tap_neutral=0,
+                    tap_min=-16,  # ±20% voltage control range  
+                    tap_max=16,
+                    tap_step_percent=1.25,
+                    tap_pos=0,
+                    max_loading_percent=120.0  # Allow some overload
+                )
+            else:
+                # Standard transformer
+                pp_trafo_idx = pp.create_transformer_from_parameters(
+                    net,
+                    hv_bus=hv_bus,
+                    lv_bus=lv_bus,
+                    name=trafo.name,
+                    sn_mva=trafo.capacity_mva,
+                    vn_hv_kv=hv_kv,
+                    vn_lv_kv=lv_kv,
+                    vk_percent=vk_percent,
+                    vkr_percent=vkr_percent,
+                    pfe_kw=trafo.capacity_mva * 1.0,
+                    i0_percent=0.5,
+                    tap_side="hv",
+                    tap_neutral=0,
+                    tap_min=-10,
+                    tap_max=10,
+                    tap_step_percent=1.25,
+                    tap_pos=0,
+                    max_loading_percent=100.0
+                )
             
             self.trafo_mapping[trafo_id] = pp_trafo_idx
     
@@ -290,7 +409,7 @@ class NetworkBuilder:
             pp.create_ext_grid(
                 net,
                 bus=pp_bus_idx,
-                vm_pu=1.02,  # Slightly higher voltage for power flow
+                vm_pu=1.00,  # Nominal voltage to prevent voltage escalation
                 va_degree=0.0,
                 name=f"Slack_{main_slack_bus.name}",
                 s_sc_max_mva=10000,  # High short circuit capacity
